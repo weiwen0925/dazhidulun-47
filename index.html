@@ -21,6 +21,8 @@
 
 
 
+
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noai,noimageai,noindex,nofollow">
 <meta name="googlebot" content="noindex,nofollow">
@@ -287,11 +289,15 @@ body{padding-left:var(--sbW); min-height:100vh;}
 
 
 
+
+
+
 <style id="wy-preguard-css">/* WY-FULL-PROTECTION-V2L8 */
-html.wy-locked,html.wy-locked *{visibility:hidden!important;background:#fff!important;}
-html:not(.wy-unlocked){visibility:hidden!important;}
-html.wy-unlocked{visibility:visible!important;}
-/* L3 · 列印靜默空白 */
+/* fail-open：預設可見，僅 wy-locked 時隱藏（L4 origin 不對才會加） */
+html.wy-locked,html.wy-locked body,html.wy-locked body *{
+  visibility:hidden!important;background:#fff!important;
+}
+/* L3 · 列印靜默空白（含選 PDF / 輸出 PDF 路徑） */
 @media print{
   html,body,body *{visibility:hidden!important;display:none!important;}
   html,body{background:#fff!important;}
@@ -3561,139 +3567,101 @@ updateActive();
 
 
 
+
+
+
 <script id="wy-full-protection-js">/* WY-FULL-PROTECTION-V2L8 */
 (function(){
-  /* ---------- 標記 html 為「鎖定中」（pre-guard） ---------- */
   var H = document.documentElement;
-  H.classList.add('wy-locked');
-
   var ALLOWED_HOST = 'weiwen0925.github.io';
   var ALLOWED_PATH = '/dazhidulun-47/';
 
   /* ---------- L2：列印攔截 ---------- */
   try{
-    var origPrint = window.print;
     Object.defineProperty(window,'print',{
       configurable:false,writable:false,
-      value:function(){ /* 靜默忽略 */ return; }
+      value:function(){ return; }
     });
-  }catch(e){ window.print = function(){}; }
+  }catch(e){ try{window.print = function(){};}catch(_){} }
 
   document.addEventListener('keydown',function(e){
     var k = (e.key||'').toLowerCase();
-    /* ⌘P / Ctrl+P / ⌘S / Ctrl+S / ⌘⇧S */
     if((e.metaKey||e.ctrlKey) && (k==='p'||k==='s')){
-      e.preventDefault(); e.stopPropagation();
-      return false;
-    }
-    /* F12 / DevTools */
-    if(k==='f12') { e.preventDefault(); return false; }
-    if((e.ctrlKey||e.metaKey) && e.shiftKey && (k==='i'||k==='j'||k==='c'||k==='k')){
-      e.preventDefault(); return false;
+      e.preventDefault(); e.stopPropagation(); return false;
     }
   },true);
 
-  /* ---------- B：webdriver / headless 偵測 ---------- */
+  /* ---------- 鎖定 / 解鎖 ---------- */
   function _silentLock(){
-    /* 靜默：直接清空 body，不顯示警語 */
     try{
-      H.classList.remove('wy-unlocked');
       H.classList.add('wy-locked');
-      document.body && (document.body.innerHTML = '');
+      if(document.body) document.body.innerHTML = '';
     }catch(e){}
   }
 
+  /* ---------- B：webdriver / headless 偵測（保守版，僅 confirmed 才鎖） ---------- */
   var ua = (navigator.userAgent||'').toLowerCase();
   if(navigator.webdriver === true ||
-     /headlesschrome|phantomjs|selenium|puppeteer|playwright/i.test(ua)){
+     /headlesschrome|phantomjs|selenium|puppeteer\/|playwright\//i.test(ua)){
     _silentLock();
     return;
   }
 
-  /* ---------- L4：Origin Lock（hostname + path 前綴） ---------- */
+  /* ---------- L4：Origin Lock（同步、硬鎖；唯一會引發頁面空白的條件） ---------- */
   function _isAllowed(){
     return location.hostname === ALLOWED_HOST &&
            location.pathname.indexOf(ALLOWED_PATH) === 0;
   }
-
-  /* ---------- L6：線上活性 HEAD ping ---------- */
-  function _ping(){
-    return new Promise(function(resolve){
-      var ts = Date.now() + '.' + Math.random().toString(36).slice(2,8);
-      var url = 'https://' + ALLOWED_HOST + ALLOWED_PATH + '?_wyping=' + ts;
-      var ctrl = (typeof AbortController!=='undefined') ? new AbortController() : null;
-      var to = setTimeout(function(){ ctrl && ctrl.abort(); resolve(false); }, 6000);
-      try{
-        fetch(url, {
-          method:'HEAD', cache:'no-store', mode:'no-cors',
-          credentials:'omit', signal: ctrl ? ctrl.signal : undefined
-        }).then(function(){ clearTimeout(to); resolve(true); })
-          .catch(function(){ clearTimeout(to); resolve(false); });
-      }catch(e){ clearTimeout(to); resolve(false); }
-    });
-  }
-
-  /* ---------- 解鎖／鎖定 ---------- */
-  function _unlock(){
-    H.classList.remove('wy-locked');
-    H.classList.add('wy-unlocked');
-    window.__wyOriginOK = true;
-  }
-
-  /* 同步：origin 不對 → 立刻靜默鎖定（不發 ping，避免洩露來源） */
   if(!_isAllowed()){
     _silentLock();
     return;
   }
 
-  /* 非同步：ping 通過才正式解鎖 */
-  window.__wyReady = new Promise(function(resolve){
-    _ping().then(function(ok){
-      if(ok){ _unlock(); resolve(true); }
-      else  { _silentLock(); resolve(false); }
-    });
-  });
+  /* ---------- L6：線上活性 HEAD ping（非阻擋；失敗只記錄，不鎖頁） ---------- */
+  /* L4 原點檢查已是硬鎖，足以阻止 webarchive/file:// 開啟。
+   * L6 在此降為「monitor」級別：fetch 失敗或被 CSP/CORS 擋都不影響閱讀。
+   */
+  window.__wyOriginOK = true;
+  window.__wyReady = Promise.resolve(true);
+  try{
+    var ts = Date.now() + '.' + Math.random().toString(36).slice(2,8);
+    var url = 'https://' + ALLOWED_HOST + ALLOWED_PATH + '?_wyping=' + ts;
+    var ctrl = (typeof AbortController!=='undefined') ? new AbortController() : null;
+    var to = setTimeout(function(){ try{ctrl&&ctrl.abort();}catch(_){} }, 6000);
+    fetch(url, {
+      method:'HEAD', cache:'no-store', mode:'no-cors',
+      credentials:'omit', signal: ctrl ? ctrl.signal : undefined
+    }).then(function(){ clearTimeout(to); window.__wyL6 = 'ok'; })
+      .catch(function(){ clearTimeout(to); window.__wyL6 = 'fail'; /* 不鎖頁 */ });
+  }catch(e){ window.__wyL6 = 'skip'; }
 
   /* ---------- 列印靜默強化（搭配 L3 CSS） ---------- */
   window.addEventListener('beforeprint', function(){
-    /* 列印觸發瞬間清空 body 內容，afterprint 還原 */
-    if(!document.body) return;
-    document.body.dataset.wyPrintBackup = 'on';
-    document.body.style.visibility = 'hidden';
+    if(document.body) document.body.style.visibility = 'hidden';
   });
   window.addEventListener('afterprint', function(){
-    if(document.body && document.body.dataset.wyPrintBackup === 'on'){
-      document.body.style.visibility = '';
-      delete document.body.dataset.wyPrintBackup;
-    }
+    if(document.body) document.body.style.visibility = '';
   });
   if(window.matchMedia){
     try{
       var mq = window.matchMedia('print');
-      mq.addEventListener && mq.addEventListener('change', function(e){
-        if(e.matches && document.body) document.body.style.visibility = 'hidden';
-        else if(document.body) document.body.style.visibility = '';
-      });
+      var handler = function(e){
+        if(!document.body) return;
+        document.body.style.visibility = e.matches ? 'hidden' : '';
+      };
+      if(mq.addEventListener) mq.addEventListener('change', handler);
+      else if(mq.addListener) mq.addListener(handler);
     }catch(e){}
   }
 
-  /* ---------- 防複製／右鍵／拖曳 ---------- */
+  /* ---------- 防複製／右鍵／拖曳（保留原檔行為） ---------- */
   ['contextmenu','copy','cut','dragstart','selectstart'].forEach(function(ev){
     document.addEventListener(ev, function(e){ e.preventDefault(); return false; }, true);
   });
 
-  /* ---------- 防 DevTools 開啟（軟性偵測） ---------- */
-  /* 偵測 viewport - innerWidth/Height 差距，太大代表 DevTools 打開 */
-  var _devtoolsLocked = false;
-  setInterval(function(){
-    if(_devtoolsLocked) return;
-    var threshold = 200;
-    if((window.outerWidth - window.innerWidth) > threshold ||
-       (window.outerHeight - window.innerHeight) > threshold){
-      _devtoolsLocked = true;
-      _silentLock();
-    }
-  }, 1500);
+  /* DevTools 偵測（width-diff / height-diff）已移除：在 docked DevTools 場景下會誤觸發
+   * 而 L4 origin lock 已能擋住「另存後離線開啟」這類主要威脅，DevTools 偵測屬冗餘。
+   */
 })();
 </script>
 
