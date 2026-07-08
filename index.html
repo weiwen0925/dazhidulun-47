@@ -954,4 +954,57 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape")MODAL.classL
 upd();var c=0,iv=setInterval(function(){upd();if(++c>40)clearInterval(iv);},250);
 })();</script>
 <!--WY-C47P3:END-->
+<!--WY-C47P4:BEGIN-->
+<style id="wy-c47p4-css">
+.c47p4-fabbox{position:fixed;right:22px;bottom:78px;z-index:121;display:none;}
+.c47p4-fabbox.show{display:block;}
+.c47p4-btn{display:inline-flex;align-items:center;gap:9px;font-family:"Noto Sans TC",sans-serif;letter-spacing:.5px;color:#f7ecd2;background:linear-gradient(135deg,#573f38,#2e2420);padding:8px 15px;border-radius:22px;border:1px solid rgba(184,134,11,.6);box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;opacity:.96;transition:opacity .3s,transform .2s,box-shadow .2s;}
+.c47p4-btn:hover{opacity:1;transform:translateY(-2px);box-shadow:0 6px 22px rgba(184,134,11,.5);}
+.c47p4-ic{font-size:15px;line-height:1;color:#ecc978;}
+.c47p4-ls{display:flex;flex-direction:column;align-items:flex-start;line-height:1.22;}
+.c47p4-l1{font-size:10.5px;font-weight:500;opacity:.82;white-space:nowrap;}
+.c47p4-l2{font-size:13px;font-weight:700;color:#faf1d8;white-space:nowrap;}
+.c47p4-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(28,20,12,.58);padding:16px;}
+.c47p4-modal.open{display:flex;}
+.c47p4-card{position:relative;background:#fbf7ee;max-width:900px;width:100%;max-height:88vh;overflow:auto;border:1px solid #d8c8ac;border-radius:14px;padding:30px 24px 22px;box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.c47p4-card h3{margin:0 0 2px;font-family:"Noto Serif TC",serif;font-size:20px;color:#8b5e3c;}
+.c47p4-card .sub{margin:0 0 14px;font-family:"Noto Sans TC",sans-serif;font-size:13px;color:#6b5b4b;}
+.c47p4-close{position:absolute;top:12px;right:16px;width:34px;height:34px;border:none;border-radius:50%;background:#efe6d4;color:#8b5e3c;font-size:22px;line-height:1;cursor:pointer;z-index:2;}
+.c47p4-close:hover{background:#e3d5b8;}
+.c47p4-tbl{width:100%;border-collapse:collapse;font-family:"Noto Sans TC",sans-serif;font-size:13px;margin:.3em 0 1.2em;}
+.c47p4-tbl caption{font-family:"Noto Serif TC",serif;font-weight:700;color:#8b5e3c;font-size:14.5px;text-align:left;margin:.6em 0 .35em;line-height:1.5;}
+.c47p4-tbl th,.c47p4-tbl td{border:1px solid #d8c8ac;padding:.45em .6em;text-align:left;vertical-align:top;line-height:1.6;}
+.c47p4-tbl thead th{background:#8b5e3c;color:#f7ecd2;font-weight:700;}
+.c47p4-tbl td:first-child{white-space:nowrap;color:#8b5e3c;font-weight:700;background:#f0e8d8;}
+.c47p4-tbl tbody tr:nth-child(even) td{background:#f6efe0;}
+.c47p4-tbl b{color:#8b2500;}
+.c47p4-note{font-size:12px;color:#5a4e3a;line-height:1.9;background:#f6efe0;border-left:3px solid #c4956a;border-radius:0 6px 6px 0;padding:10px 13px;margin:4px 0 0;}
+.c47p4-note b{color:#8b2500;}
+@media(max-width:900px){.c47p4-fabbox{right:14px;}.c47p4-tbl{font-size:11.5px;}.c47p4-card{padding:26px 14px 16px;}}
+</style>
+<div class="c47p4-fabbox" id="c47p4Box"><button class="c47p4-btn" id="c47p4Btn" type="button" aria-label="開啟全景總表"><span class="c47p4-ic">▦</span><span class="c47p4-ls"><span class="c47p4-l1">本品 · 摩訶衍之幾何學</span><span class="c47p4-l2">經論分工 · 用無所得終極定義</span></span></button></div><div class="c47p4-modal" id="c47p4Modal" role="dialog" aria-modal="true" aria-label="全景總表"><div class="c47p4-card"><button class="c47p4-close" id="c47p4Close" type="button" aria-label="關閉">×</button><h3>卷四十七·第四品 釋摩訶衍品末後問答（佛多說三昧論但說諸法） · 全景總表</h3><p class="sub">卷四十七・第四品｜摩訶衍之幾何學・因果互攝略廣互補・以法導定借假修真・體用無得終極條件・四層建築方程式</p><table class="c47p4-tbl"><caption>一、緣起疑情與答文三層邏輯地圖（本品主骨架）</caption><thead><tr><th>環節</th><th>內容</th></tr></thead><tbody><tr><td>開卷疑情</td><td>佛多說「諸三昧」，汝何以但說「諸法」？——佛說三昧如示人宏偉宮殿（完成態），論說諸法如示人建築藍圖材料（操作態），是教義衝突或教學分工，是全品總門</td></tr><tr><td>第一層·因果互攝</td><td>佛多說果報，論者合因緣果報說——如觀身不淨得不淨三昧（身是因、三昧是果），觀五眾無常苦空得七覺意三昧能生八聖道四沙門果（果上生果）</td></tr><tr><td>第二層·略廣互補</td><td>佛應適眾生故但說一法，論者廣說分別諸事——一切有漏皆苦因而佛但說愛（苦諦壓縮），一切煩惱滅名滅諦而佛但說愛盡（滅諦壓縮），經是壓縮檔、論是解壓縮程式</td></tr><tr><td>第三層·體用無得</td><td>是諸三昧末後，皆應言用無所得，以同般若故——全篇最重要的心印，百八三昧名相各異，唯此一印無異，無量三昧因此同名摩訶衍</td></tr><tr><td>總結歸宗</td><td>如是等無量無邊三昧和合，名為摩訶衍——五段答文環環相扣，前三段答方法論，第四段答空性論，第五段答判教論</td></tr></tbody></table><table class="c47p4-tbl"><caption>二、修行心理學與以法導定的實修心法</caption><thead><tr><th>環節</th><th>內容</th></tr></thead><tbody><tr><td>菩薩心理結構</td><td>於諸觀行中必不疑（因地修法已有信心）、於諸三昧未了（果地宏偉境界尚未全知）——佛以三昧之名激勵引導，令願力增上方向不偏</td></tr><tr><td>因中攝果模型</td><td>論者說諸法，一切三昧皆已在中——把因講透，果已含攝，不需另立；圓滿的因本身就懷抱著果</td></tr><tr><td>以法導定三步驟</td><td>不求定境（入手處不是死守定的狀態）→唯觀諸法（觀五蘊無常觀身不淨）→水到渠成（法觀成就時定境不求自得）——執著於定反失禪定，專注於法定在其中</td></tr><tr><td>借假修真</td><td>諸法觀行所緣的身、五眾皆是因緣假法，正因其假方堪作觀，觀之徹底真定自顯——上承因果互攝（因即攝果），下啟體用無得（得而無得）</td></tr><tr><td>用與無所得的弔詭</td><td>用是真實的（以三昧度眾放光變七寶妙用無邊），無所得也是真實的（內心不覺自己得到亦不執著境界）——正因中心無所得，大用才能無礙周行</td></tr></tbody></table><table class="c47p4-tbl"><caption>三、凡夫定與波羅蜜的分水嶺與最終結構方程</caption><thead><tr><th>環節</th><th>內容</th></tr></thead><tbody><tr><td>凡夫定vs波羅蜜</td><td>凡夫定有所得、執著定境、受限三界無法究竟解脫；波羅蜜無所得、三昧與般若相應用而無執、與空性同體契入大乘——分水嶺只在一念執與不執</td></tr><tr><td>匯歸中觀空性</td><td>大聖說空法，為離諸見故——三昧如殿宇林立，空性如中軸貫通其中，一切境界包括三昧本身皆不可取著</td></tr><tr><td>摩訶衍最終定義</td><td>和合不是名數的堆疊，而是同印之法的總集——摩訶衍之大，不在三昧之多，而在空印之徹底</td></tr><tr><td>四層建築圖譜</td><td>地基（諸法·因緣觀行）→大廈（三昧·果報境界）→大廈內的虛空（般若無所得·中軸貫通）→建築總稱（摩訶衍·同印和合）——全品義理收攝為一座完整伽藍</td></tr><tr><td>最終結構方程</td><td>摩訶衍＝無量三昧＋用無所得——以連環破執的邏輯收官，始終以無相般若導航，安住於諸法實相；廣而不雜、深而不滯，方名摩訶衍</td></tr></tbody></table><p class="c47p4-note">本品釋卷四十七釋摩訶衍品末後一段關鍵問答：佛陀多說「諸三昧」，論主何以偏偏只說「諸法」？龍樹菩薩的回答分三層遞進——因果互攝（佛說果、論說因，二者是同一實相的兩個切入點）、略廣互補（佛應機說一法、論者廣說分別諸事，經是壓縮檔論是解壓縮程式）、體用無得（是諸三昧末後皆應言用無所得，以同般若故）。<b>三層邏輯層層深入：因果互攝立其體，略廣互補立其文，體用無得立其宗</b>——這一印鑑判分了凡夫定與波羅蜜，也回答了無量三昧何以總名摩訶衍。全篇以「摩訶衍＝無量三昧＋用無所得」的最終結構方程收束，為卷四十七畫上句點。</p></div></div>
+<script id="wy-c47p4-js">(function(){
+var CH=document.querySelectorAll("section.chapter");
+var BTN=document.getElementById("c47p4Btn"),BOX=document.getElementById("c47p4Box"),MODAL=document.getElementById("c47p4Modal");
+if(!CH.length||!BTN||!BOX||!MODAL)return;
+var TARGET=3;
+function curIdx(){var lim=window.innerHeight*0.35,idx=-1;for(var i=0;i<CH.length;i++){if(CH[i].getBoundingClientRect().top<lim)idx=i;}return idx;}
+var FSEL="#wyVideoFab,.wy-vfab,#vidFab,.vid-fab,#videoFab,#wyVideoBtn,#wyFab,#wy-fab,#vid-floating,#floatingYt,.video-fab,.wy-vbtn,.wy-video-fab,.floating-yt",_fab,_ft=false;
+function fab(){if(_fab&&_fab.isConnected)return _fab;if(_ft)return _fab;_ft=true;_fab=document.querySelector(FSEL);return _fab;}
+function place(){
+  var base=null,eb=document.querySelector(".wy-ebox");
+  if(eb){var r=eb.getBoundingClientRect();if(r.height>4)base=Math.round(window.innerHeight-r.top)+8;}
+  if(base===null){var fEl=fab();if(fEl){var fr=fEl.getBoundingClientRect(),st=getComputedStyle(fEl);if(fr.height>0&&st.display!=="none"&&st.visibility!=="hidden")base=Math.round(window.innerHeight-fr.top)+10;}}
+  if(base===null)base=78;
+  BOX.style.bottom=base+"px";
+}
+function upd(){place();BOX.classList.toggle("show",curIdx()===TARGET);}
+var tk=false;function onS(){if(!tk){tk=true;requestAnimationFrame(function(){tk=false;upd();});}}
+window.addEventListener("scroll",onS,{passive:true});window.addEventListener("resize",onS);
+BTN.addEventListener("click",function(){MODAL.classList.add("open");});
+MODAL.addEventListener("click",function(e){if(e.target===MODAL||e.target.id==="c47p4Close")MODAL.classList.remove("open");});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")MODAL.classList.remove("open");});
+upd();var c=0,iv=setInterval(function(){upd();if(++c>40)clearInterval(iv);},250);
+})();</script>
+<!--WY-C47P4:END-->
 </body></html>
